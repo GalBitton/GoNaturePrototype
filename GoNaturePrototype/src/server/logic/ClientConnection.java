@@ -2,6 +2,13 @@ package server.logic;
 
 import javafx.beans.property.SimpleStringProperty;
 
+
+/**
+ * The ClientConnection class is an entity which contains the client information.
+ * This class use SimpleStringProperty in order to be able to observe it smoothly in UI.
+ * @Author GalBitton
+ * @version 1.0.0
+ */
 public class ClientConnection {
 	private SimpleStringProperty hostIp,hostName,status;
 	

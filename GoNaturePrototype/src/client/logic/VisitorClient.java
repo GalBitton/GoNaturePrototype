@@ -17,18 +17,24 @@ public class VisitorClient extends AbstractClient {
 		openConnection();
 	}
 	
-	public static void connectClientToServer(String host, String port, ClientGuiController clientController) {
+	public static boolean connectClientToServer(String host, String port, ClientGuiController clientController) {
 		// Design Pattern - Singleton.
 		// Only create one instance of client.
 		if(client!=null) {
-			clientController.connected();
+			clientController.printToConsole("The client is already connected!");
+			return false;
 		}
 		
 		try {
 			client= new VisitorClient(host,Integer.parseInt(port),clientController);
+			return true;
 		}catch(IOException ex) {
 			clientController.printToConsole("Error while connection Client to Server");
 		}
+		catch(Exception e) {
+			clientController.printToConsole(e.getMessage());
+		}
+		return false;
 	}
 	
 	public static void disconnectClientFromServer() {

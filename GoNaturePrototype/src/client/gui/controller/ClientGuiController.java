@@ -117,9 +117,12 @@ public class ClientGuiController implements Initializable{
 	}
 	
 	public void connectToServer() {
-		VisitorClient.connectClientToServer(serverIpField.getText(), serverPortField.getText(), this);
-		disconnectServerBtn.setDisable(false);
-		connectServerBtn.setDisable(true);
+		boolean isConnected = VisitorClient.connectClientToServer(serverIpField.getText(), serverPortField.getText(), this);
+		if(isConnected) {
+			disconnectServerBtn.setDisable(false);
+			connectServerBtn.setDisable(true);
+			connected();
+		}
 	}
 	
 	public void disconnectFromServer() {
