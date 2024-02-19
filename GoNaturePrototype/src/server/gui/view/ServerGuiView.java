@@ -13,6 +13,7 @@ import server.logic.GoNatureServer;
 public class ServerGuiView extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		// test comment
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ServerGui.fxml"));
 		AnchorPane root = fxmlLoader.load();
 		@SuppressWarnings("unused")
