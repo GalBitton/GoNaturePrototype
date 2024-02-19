@@ -1,5 +1,11 @@
 package server.jdbc;
 
+
+/**
+ * The DBConnectionDetails class is an entity of the required data in order to be able to connect the database.
+ * @Author GalBitton
+ * @version 1.0.0
+ */
 public class DBConnectionDetails {
 
 	private String name;

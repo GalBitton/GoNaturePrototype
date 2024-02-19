@@ -2,6 +2,13 @@ package common.logic;
 
 import java.io.Serializable;
 
+
+/**
+ * The Order class is an entity which contain all the required details about Order.
+ * This class is Serializable in order to be able to use it with the ocsf framework.
+ * @Author GalBitton
+ * @version 1.0.0
+ */
 public class Order implements Serializable {
 	/**
 	 * 

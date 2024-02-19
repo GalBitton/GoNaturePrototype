@@ -7,21 +7,23 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import server.gui.controller.ServerGuiController;
 import server.logic.GoNatureServer;
 
+/**
+ * This is the main application class, which extends the javaFX application class.
+ * @Author GalBitton
+ * @version 1.0.0
+ */
 public class ServerGuiView extends Application {
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// test comment
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ServerGui.fxml"));
 		AnchorPane root = fxmlLoader.load();
-		@SuppressWarnings("unused")
-		ServerGuiController controller = fxmlLoader.getController();
-		
 		Scene scene = new Scene(root);
 		Image icon = new Image("/common/resources/icon.png");
 		primaryStage.getIcons().add(icon);
+		
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		// disconnect before closing waiting to run on main javaFX thread.
