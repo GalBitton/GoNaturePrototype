@@ -8,8 +8,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * ClientGuiView responsible to load and open the view 
+ * of the first page for the Client
+ * @Author NadavReubens
+ * @version 1.0.0
+ */
 public class ClientGuiView extends Application{
 
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		//add comment

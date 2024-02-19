@@ -19,6 +19,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 
+ 
+/**
+ * 
+ * @Author NadavReubens
+ * @version 1.0.0 
+ */
 public class ClientGuiController implements Initializable{
 
 	@FXML
@@ -69,6 +75,7 @@ public class ClientGuiController implements Initializable{
 	@FXML
 	private Label updateRequestLbl;
 	
+	
 	private ObservableList<ParkEnum> ParksList=FXCollections.observableArrayList(
 			ParkEnum.Hermon_Mountain,
 			ParkEnum.Agmon_HaHula,
@@ -89,10 +96,18 @@ public class ClientGuiController implements Initializable{
 		numberOfVisitorField.setDisable(true);
 		orderNumberField.setDisable(true);
 		
+		disconnectServerBtn.setDisable(true);//added by nadav
+		searchBtn.setDisable(true);
+		updateOrderBtn.setDisable(true);
 		parkNameField.getItems().addAll(ParksList);
 		parkNameField.setOnAction(this::OnChangeAccountType);
 	}
 	
+	/**
+	 * the method responsible to change the value of parkName field
+	 * in the Client view page when event occurred
+	 * @param event-button pressed or keyframe finished
+	 */
 	public void OnChangeAccountType(ActionEvent event) {
 		ParkEnum park = parkNameField.getValue();
 
@@ -116,18 +131,40 @@ public class ClientGuiController implements Initializable{
 		
 	}
 	
+	/**
+	 * the method fetch entered serverIpField and serverPortField
+	 * and call method connectClientToServer from VisitorClient class to try and connect
+	 */
 	public void connectToServer() {
-		VisitorClient.connectClientToServer(serverIpField.getText(), serverPortField.getText(), this);
-		disconnectServerBtn.setDisable(false);
+		boolean isConnected=VisitorClient.connectClientToServer(serverIpField.getText(), serverPortField.getText(), this);
+		if(isConnected) {
+		disconnectServerBtn.setDisable(false);//adjust view 
 		connectServerBtn.setDisable(true);
+		searchBtn.setDisable(false);
+		connected();
+		}
 	}
 	
+	/**
+	 * onClick on disconnectServerBtn the method call the method 
+	 * disconnectClientFromServer from VisitorClient class to try and disconnect
+	 */
 	public void disconnectFromServer() {
-		VisitorClient.disconnectClientFromServer();
-		disconnectServerBtn.setDisable(true);
+		boolean isDissconected=VisitorClient.disconnectClientFromServer();
+		if(isDissconected) {
+		disconnectServerBtn.setDisable(true);//adjust view 
 		connectServerBtn.setDisable(false);
+		searchBtn.setDisable(true);
+		updateOrderBtn.setDisable(true);
+		disconnected();
+		}
 	}
 	
+	/**
+	 * onClick on searchOrderPressed the method fetch the ticketIdField and 
+	 * call sendSearchOrderToServer method from VisitorClient class to search
+	 * order by ticketID
+	 */
 	public void searchOrderPressed() {
 		try {
 			VisitorClient.sendSearchOrderToServer(Integer.parseInt(ticketIdField.getText()));
@@ -136,6 +173,10 @@ public class ClientGuiController implements Initializable{
 		}
 	}
 	
+	/**
+	 * onClick on updateOrderPressed the method fetch the parkName and phoneNumberField 
+	 * and call sendUpdatesToServer method from VisitorClient class to update those values
+	 */
 	public void updateOrderPressed() {
 		try {
 			requestedOrder.setParkName(parkName);
@@ -146,38 +187,54 @@ public class ClientGuiController implements Initializable{
 		}
 	}
 	
+	/**
+	 * the method gets a message and print to console
+	 * @param msg
+	 */
 	public void printToConsole(String msg) {
 		System.out.println(msg);
 	}
 	
+	/**
+	 * the method update the Client UI after Client disconnected
+	 */
 	public void disconnected() {
 		Platform.runLater(()->clientStatusLbl.setText("Disconnected"));
 		Platform.runLater(()->clientStatusLbl.setTextFill(Paint.valueOf("Red")));
-		searchBtn.setDisable(true);
-		disconnectServerBtn.setDisable(true);
-		connectServerBtn.setDisable(false);
-		updateOrderBtn.setDisable(true);
+		
 	}
 	
+	/**
+	 * the method update the Client UI after Client connected
+	 */
 	public void connected() {
 		Platform.runLater(()->clientStatusLbl.setText("Connected"));
 		Platform.runLater(()->clientStatusLbl.setTextFill(Paint.valueOf("Green")));
-		searchBtn.setDisable(false);
-		connectServerBtn.setDisable(true);
-		disconnectServerBtn.setDisable(false);
 	}
 	
+	/**
+	 * the method update the Client UI after search didn't succeed
+	 */
 	public void searchNotFound() {
 		Platform.runLater(()-> orderStatusLbl.setText("Not Found"));
 		Platform.runLater(()->orderStatusLbl.setTextFill(Paint.valueOf("Red")));
 	}
 	
+	/**
+	 * the method update the Client UI after search succeeded
+	 */
 	public void searchFound() {
 		Platform.runLater(()-> orderStatusLbl.setText("Found"));
 		Platform.runLater(()->orderStatusLbl.setTextFill(Paint.valueOf("Green")));
 		updateOrderBtn.setDisable(false);
 	}
 	
+	/**
+	 * the method update the Client UI after updating Order 
+	 * if succeeded green text 
+	 * if failed red text 
+	 * @param msg -message if succeeded/failed
+	 */
 	public void updateOrderMessage(String  msg) {
 		Platform.runLater(()-> updateRequestLbl.setText(msg));
 		if(msg.equals("Order not updated"))
@@ -187,6 +244,11 @@ public class ClientGuiController implements Initializable{
 		updateOrderBtn.setDisable(true);
 	}
 	
+	/**
+	 * the method update the Client UI 
+	 * shows order details 
+	 * @param order
+	 */
 	public void displayOrder(Order order) {
 		requestedOrder=order;
 		emailField.setText(order.getEmail());
@@ -199,6 +261,11 @@ public class ClientGuiController implements Initializable{
 		updateOrderBtn.setDisable(false);
 	}
 	
+	/**
+	 * the method update the Client UI 
+	 * the method gets name of park put it in the parkNameField
+	 * @param park
+	 */
 	private void setParkNameFromOrder(String park) {
 		switch(park) {
 		case "Hermon Mountain":
