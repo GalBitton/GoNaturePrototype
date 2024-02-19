@@ -12,6 +12,7 @@ public class ClientGuiView extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		//add comment
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ClientGui.fxml"));
 		AnchorPane root = fxmlLoader.load();
 		@SuppressWarnings("unused")
