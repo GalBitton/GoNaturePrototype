@@ -1,6 +1,7 @@
 package server.gui.view;
 
 import javafx.application.Application;
+
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,7 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import server.logic.GoNatureServer;
-
+//hiiiiii
 /**
  * This is the main application class, which extends the javaFX application class.
  * @Author GalBitton
