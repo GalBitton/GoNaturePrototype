@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 /**
  * ClientGuiView responsible to load and open the view 
  * of the first page for the Client
- * @Author NadavReubens
+ * @Author \NadavReubens
  * @version 1.0.0
  */
 public class ClientGuiView extends Application{

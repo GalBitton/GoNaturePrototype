@@ -9,7 +9,7 @@ import client.ocsf.AbstractClient;
 
 /**
  * 
- * @Author NadavReubens
+ * @Author \NadavReubens
  * @version 1.0.0
  */
 public class VisitorClient extends AbstractClient {

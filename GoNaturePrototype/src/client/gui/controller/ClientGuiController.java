@@ -22,7 +22,7 @@ import javafx.scene.paint.Paint;
  
 /**
  * 
- * @Author NadavReubens
+ * @Author \NadavReubens
  * @version 1.0.0 
  */
 public class ClientGuiController implements Initializable{
